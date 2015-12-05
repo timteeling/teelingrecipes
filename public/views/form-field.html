@@ -26,24 +26,4 @@
     </div>
   </div>
 
-  <div ng-if="field === 'steps'">
-    <div class="input-group" ng-switch="required">
-      <textarea ng-switch-when="true" ng-model="record[field][0][0]" required ng-change="update()" ng-blur="blurUpdate()" />
-
-      <div class="input-group" ng-switch-default>
-        <textarea ng-model="record[field][0][0]" ng-change="update()" ng-blur="blurUpdate()" />
-      </div>
-    </div>
-  </div>
-
-  <div ng-if="field === 'ingredients'">
-    <div class="input-group" ng-switch="required">
-      <input type="text" ng-switch-when="true" ng-model="record[field][0][0]" required ng-change="update()" ng-blur="blurUpdate()" />
-
-      <div class="input-group" ng-switch-default>
-        <input type="text" ng-model="record[field][0][0]" ng-change="update()" ng-blur="blurUpdate()" />
-      </div>
-    </div>
-  </div>
-
 </div>

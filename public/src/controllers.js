@@ -67,16 +67,12 @@ angular.module('RecipesApp')
   .controller('SingleController', function($scope, $rootScope, $location, Recipe, $routeParams){
     $rootScope.PAGE = 'single';
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });
-    $scope.delete = function(){
-      $scope.recipe.$delete();
-      $location.url('/recipes');
-    }
   })
-  .controller('EditController', function($scope, $rootScope, $location, Recipe, $routeParams){
+  .controller('EditController', function($scope, $rootScope, $location, $http, Recipe, $routeParams){
     $rootScope.PAGE = 'edit';
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });
     $scope.delete = function(){
-      $scope.recipe.$delete();
+      $http.delete('/api/recipes/' + parseInt($routeParams.id, 10));
       $location.url('/recipes');
-    }
+    };
   });

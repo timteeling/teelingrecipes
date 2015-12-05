@@ -28,13 +28,6 @@ angular.module('RecipesApp')
           $scope[$scope.field].$setDirty();
         });
 
-        $scope.types = FieldTypes;
-
-        $scope.remove = function(field) {
-          delete $scope.record[field];
-          $scope.blurUpdate();
-        };
-
         $scope.blurUpdate = function() {
           if ($scope.live !== 'false') {
             $scope.record.$update(function(updatedRecord) {
@@ -42,6 +35,7 @@ angular.module('RecipesApp')
             });
           }
         };
+        
         var saveTimeout;
         $scope.update = function() {
           $timeout.cancel(saveTimeout);

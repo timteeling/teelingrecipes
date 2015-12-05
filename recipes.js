@@ -42,7 +42,6 @@ router
       });
     })
     .delete(function(req,res){
-      recipes.delete(req.dbQuery, function(){
-        res.json(null);
-      });
+      recipes.remove(req.dbQuery);
+      res.json(null);
     });

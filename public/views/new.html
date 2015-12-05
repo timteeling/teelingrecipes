@@ -19,7 +19,7 @@
         <h2>Ingredients</h2>
         <div class="mb-1 form-item" ng-repeat="ingredient in recipe['ingredients']">
           <label>Ingredient {{$index + 1}}</label>
-          <input type="text" ng-model="ingredient[0]" ng-change="update()" ng-blur="blurUpdate()" />
+          <input type="text" ng-model="ingredient[0]" ng-change="update(ingredient)" ng-blur="blurUpdate(ingredient)" ng-class="{ 'has-error': {{ingredient}}.$dirty && {{ingredient}}.$invalid }" />
           <a class="remove-item" href="" ng-if="$index > 1" ng-click="removeIngredient(ingredient)">×</a>
         </div>
       </div>
@@ -30,8 +30,8 @@
         <h2>Steps</h2>
         <div class="mb-1 form-item" ng-repeat="step in recipe['steps']">
           <label>Step {{$index + 1}}</label>
-          <textarea ng-model="step[0]" ng-change="update()" ng-blur="blurUpdate()"></textarea>
-          <a class="remove-item" href="" ng-if="$index > 1" ng-click="removeStep(step)">×</a>
+          <textarea ng-model="step[0]" ng-change="update(step)" ng-blur="blurUpdate()" ng-class="{ 'has-error': {{step}}.$dirty && {{step}}.$invalid }"></textarea>
+          <a class="remove-item" href="" ng-if="$index > 0" ng-click="removeStep()">×</a>
         </div>
       </div>
       <p><a href="" ng-click="addStep()">+ Step</a></p>
