@@ -28,6 +28,7 @@ angular.module('RecipesApp')
       ],
       servings: ['', 'text'],
       ingredients: [
+        ['', 'text'],
         ['', 'text']
       ],
       steps: [
@@ -35,6 +36,24 @@ angular.module('RecipesApp')
       ]
 
     });
+
+    $scope.addIngredient = function(){
+      $scope.recipe['ingredients'].push(['', 'text']);
+    };
+
+    $scope.removeIngredient = function(item){
+      var index = $scope.recipe['ingredients'].indexOf(item);
+      $scope.recipe['ingredients'].splice(index, 1);
+    };
+
+    $scope.addStep = function(){
+      $scope.recipe['steps'].push(['', 'text']);
+    };
+
+    $scope.removeStep = function(item){
+      var index = $scope.recipe['steps'].indexOf(item);
+      $scope.recipe['steps'].splice(index, 1);
+    };
 
     $scope.save = function(){
       if($scope.newRecipe.$invalid){

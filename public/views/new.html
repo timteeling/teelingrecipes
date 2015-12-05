@@ -14,11 +14,27 @@
   </div>
 
   <div class="clearfix">
-    <div class="onethird">
-      <form-field record="recipe" field="ingredients" live="false"></form-field>
+    <div class="onethird ingredients-area">
+      <div class="form-group" ng-form="ingredients">
+        <h2>Ingredients</h2>
+        <div class="mb-1 form-item" ng-repeat="ingredient in recipe['ingredients']">
+          <label>Ingredient {{$index + 1}}</label>
+          <input type="text" ng-model="ingredient[0]" ng-change="update()" ng-blur="blurUpdate()" />
+          <a class="remove-item" href="" ng-if="$index > 1" ng-click="removeIngredient(ingredient)">×</a>
+        </div>
+      </div>
+      <p><a href="" ng-click="addIngredient()">+ Ingredient</a></p>
     </div>
-    <div class="twothirds last">
-      <form-field record="recipe" field="steps" live="false"></form-field>
+    <div class="twothirds steps-area last">
+      <div class="form-group" ng-form="steps">
+        <h2>Steps</h2>
+        <div class="mb-1 form-item" ng-repeat="step in recipe['steps']">
+          <label>Step {{$index + 1}}</label>
+          <textarea ng-model="step[0]" ng-change="update()" ng-blur="blurUpdate()"></textarea>
+          <a class="remove-item" href="" ng-if="$index > 1" ng-click="removeStep(step)">×</a>
+        </div>
+      </div>
+      <p><a href="" ng-click="addStep()">+ Step</a></p>
     </div>
   </div>
 

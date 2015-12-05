@@ -15,9 +15,25 @@ textarea {
 }
 
 textarea {
-  min-height: 6em;
+  min-height: 7em;
 }
 
 .form-group {
   margin-bottom: 1em;
+}
+
+.form-item {
+  position: relative;
+}
+
+.ingredients-area .remove-item,
+.steps-area .remove-item {
+  position: absolute;
+  right: .25em;
+  font-size: 2em;
+  top: 28%;
+}
+
+.steps-area .remove-item {
+  top: 12%;
 }
