@@ -7,7 +7,7 @@ express()
   .use(login.routes)
   .use(require('./recipes'))
   .get('*', login.required, function(req,res){
-    res.redirect('/');
+    res.redirect('/index.html');
     /*res.render('index', {
       user: login.safe(req.user)
     });*/

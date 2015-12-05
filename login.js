@@ -11,8 +11,8 @@ function hash (password) {
   return crypto.createHash('sha512').update(password).digest('hex');
 }
 
-passport.use(new LocalStrategy(function(email, password, done){
-  var user = users.where({ email: email, passwordHash: hash(password) }).items[0];
+passport.use(new LocalStrategy(function(username, password, done){
+  var user = users.where({ username: username, passwordHash: hash(password) }).items[0];
 
   if(user) {
     done(null, user);
@@ -48,10 +48,10 @@ router.get('/login', function(req, res){
 });
 
 router.post('/signup', function(req,res, next){
-  if(users.where({ email: req.body.email }).items.length === 0) {
+  if(users.where({ username: req.body.username }).items.length === 0) {
     var user = {
       fullname: req.body.fullname,
-      email: req.body.email,
+      username: req.body.username,
       passwordHash: hash(req.body.password),
       following: []
     };
@@ -70,25 +70,25 @@ router.post('/signup', function(req,res, next){
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/login'
+  failureRedirect: '/login.html'
 }));
 
 router.get('/logout', function(req,res){
   req.logout();
-  res.redirect('/login');
+  res.redirect('/');
 });
 
 function loginRequired (req,res,next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect('/login');
+    res.redirect('/login.html');
   }
 }
 
 function makeUserSafe (user) {
   var safeUser = {};
-  var safeKeys = ['cid', 'fullname', 'following'];
+  var safeKeys = ['cid', 'fullname'];
 
   safeKeys.forEach(function(key){
     safeUser[key] = user[key];
