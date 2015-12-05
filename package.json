@@ -4,7 +4,11 @@
   "description": "Family recipe app",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timteeling/teelingrecipes"
   },
   "author": "Tim Teeling",
   "license": "MIT",
@@ -25,5 +29,8 @@
     "grunt-sass": "^1.1.0",
     "grunt-shell": "^1.1.2",
     "load-grunt-tasks": "^3.3.0"
-  }
+  },
+  "engines": {
+    "node": "0.12.0"
+  },
 }

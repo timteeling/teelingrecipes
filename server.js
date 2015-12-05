@@ -1,5 +1,6 @@
 var express = require('express');
 var login = require('./login');
+var port = Number(process.env.PORT || 5000);
 
 express()
   .set('view engine', 'html')
@@ -11,4 +12,6 @@ express()
       user: login.safe(req.user)
     });
   })
-  .listen(3000);
+  .listen(port, function() {
+    console.log('Node app is running on port', port);
+  });
