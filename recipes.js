@@ -21,3 +21,28 @@ router.route('/api/recipes')
     var id = recipes.insert(recipe);
     res.json(recipes.get(id));
   });
+
+router
+  .all(login.required)
+  .param('id', function(req,res,next){
+    req.dbQuery = parseInt(req.params.id, 10);
+    next();
+  })
+  .route('/api/recipes/:id')
+    .get(function(req,res){
+      var single = recipes.get(req.dbQuery);
+      res.json(single);
+    })
+    .put(function (req, res) {
+      var recipe = req.body;
+      delete recipe.$promise;
+      delete recipe.$resolved;
+      recipes.update(req.dbQuery, recipe, function (err, data) {
+        res.json(data[0]);
+      });
+    })
+    .delete(function(req,res){
+      recipes.delete(req.dbQuery, function(){
+        res.json(null);
+      });
+    });
