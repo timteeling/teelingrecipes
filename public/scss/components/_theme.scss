@@ -1,0 +1,35 @@
+.content {
+  background: $color-white;
+	padding: 2em;
+	margin-top: 8em;
+  box-shadow: 0 .5em 1em rgba(0,0,0,.25);
+}
+
+h1,h2,h3,h4,h5,h6 {
+  line-height: 1.2;
+  margin: 0;
+}
+
+h1 {
+  margin-bottom: .5em;
+}
+
+h2 {
+  margin-bottom: 1em;
+}
+
+p {
+  margin: 0 0 1.5em;
+}
+
+.home-header {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.recipe-list {
+  padding: 2em 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  &:last-child {
+    border-bottom: 0;
+  }
+}

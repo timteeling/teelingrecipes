@@ -1,5 +1,11 @@
-<h1>All Recipes</h1>
-<p><input type="search" placeholder="Search" ng-model="query" /></p>
+<div class="clearfix home-header">
+  <div class="onehalf">
+    <h1>All Recipes</h1>
+  </div>
+  <div class="onehalf last">
+    <p><input type="search" placeholder="Search" ng-model="query" /></p>
+  </div>
+</div>
 
 <div class="row recipe-list" ng-repeat="recipe in recipes | filter: query | orderBy: sort.field : sort.order">
   <div class="twothirds">
