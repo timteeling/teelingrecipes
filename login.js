@@ -64,7 +64,7 @@ router.post('/signup', function(req,res, next){
     });
 
   } else {
-    res.redirect('/register.html');
+    res.redirect('/login.html');
   }
 });
 
