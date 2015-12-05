@@ -1,0 +1,19 @@
+/* Variables */
+
+
+
+/* Mixins */
+@mixin breakpoint($point) {
+  @if $point == xlarge {
+    @media (min-width: 90em) { @content; }
+  }
+  @else if $point == large {
+    @media (min-width: 60em) { @content; }
+  }
+  @else if $point == medium {
+    @media (min-width: 45em) { @content; }
+  }
+  @else if $point == small {
+    @media (min-width: 38em)  { @content; }
+  }
+}

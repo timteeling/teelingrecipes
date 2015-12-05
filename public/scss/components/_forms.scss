@@ -1,0 +1,11 @@
+label {
+  display: block;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+textarea {
+  display: block;
+  width: 100%;
+}
