@@ -1,0 +1,12 @@
+/* Header and Nav */
+
+.header {
+  padding: 1em 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  .nav {
+    float: right;
+    a:first-child {
+      margin-right: 1em;
+    }
+  }
+}

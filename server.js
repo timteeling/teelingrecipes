@@ -7,9 +7,8 @@ express()
   .use(login.routes)
   .use(require('./recipes'))
   .get('*', login.required, function(req,res){
-    res.redirect('/index.html');
-    /*res.render('index', {
+    res.sendfile('public/main.html', {
       user: login.safe(req.user)
-    });*/
+    });
   })
   .listen(3000);

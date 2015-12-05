@@ -1,8 +1,12 @@
 @import
+
+  //Foundations
   'foundations/variables',
-  'foundations/helpers',
   'foundations/normalize',
   'foundations/grid',
+  'foundations/helpers',
 
-  'components/forms'
+  //Components
+  'components/forms',
+  'components/header'
 ;

@@ -1,0 +1,23 @@
+<!doctype html>
+<html ng-app="RecipesApp">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Teeling Recipes</title>
+<link rel="stylesheet" href="/css/main.css">
+<base href="/">
+</head>
+<body>
+
+<div ng-include="'views/nav.html'"></div>
+
+<div class="container" ng-view></div>
+
+<script src="/lib/angular/angular.min.js"></script>
+<script src="/lib/angular-route/angular-route.min.js"></script>
+<script src="/lib/angular-resource/angular-resource.min.js"></script>
+<script src="/lib/angular-messages/angular-messages.min.js"></script>
+<script src="/src/app.js"></script>
+<script src="/src/controllers.js"></script>
+</body>
+</html>

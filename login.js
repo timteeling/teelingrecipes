@@ -60,22 +60,22 @@ router.post('/signup', function(req,res, next){
 
     req.login(users.get(userId), function(err){
       if(err) return next(err);
-      res.redirect('/');
+      res.redirect('/main.html');
     });
 
   } else {
-    res.redirect('/login.html');
+    res.redirect('/register.html');
   }
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
+  successRedirect: '/main.html',
   failureRedirect: '/login.html'
 }));
 
 router.get('/logout', function(req,res){
   req.logout();
-  res.redirect('/');
+  res.redirect('/login.html');
 });
 
 function loginRequired (req,res,next) {
@@ -88,7 +88,7 @@ function loginRequired (req,res,next) {
 
 function makeUserSafe (user) {
   var safeUser = {};
-  var safeKeys = ['cid', 'fullname'];
+  var safeKeys = ['cid', 'fullname', 'username'];
 
   safeKeys.forEach(function(key){
     safeUser[key] = user[key];

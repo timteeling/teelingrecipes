@@ -16,3 +16,9 @@
 .view-content {
   @extend %clearfix;
 }
+
+.aligncenter {
+  display: block;
+  float: none;
+  margin: 0 auto;
+}
