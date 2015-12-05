@@ -1,11 +1,23 @@
 label {
   display: block;
+  font-weight: bold;
 }
 
 input[type=text],
 input[type=email],
 input[type=password],
+input[type=search],
 textarea {
   display: block;
   width: 100%;
+  padding: .5em;
+  border: 1px solid $color-border;
+}
+
+textarea {
+  min-height: 6em;
+}
+
+.form-group {
+  margin-bottom: 1em;
 }

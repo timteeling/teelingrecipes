@@ -1,1 +1,20 @@
-<h1>List View</h1>
+<h1>All Recipes</h1>
+<p><input type="search" placeholder="Search" ng-model="query" /></p>
+
+<div class="row recipe-list" ng-repeat="recipe in recipes | filter: query | orderBy: sort.field : sort.order">
+  <div class="twothirds">
+    <h3><a href="/recipes/{{recipe.cid}}">{{recipe.title[0]}}</a></h3>
+    {{recipe.description[0]}}
+  </div>
+  <div class="onethird last">
+    <div ng-if="recipe.servings[0].length > 0" class="servings">
+      <strong>Servings:</strong> {{ recipe.servings[0] }}
+    </div>
+    <div ng-if="recipe.time[0].length > 0" class="time">
+      <strong>Time:</strong> {{ recipe.time[0] }}
+    </div>
+    <div ng-if="recipe.source[0].length > 0" class="source">
+      <strong>Source:</strong> <a target="_blank" href="{{ recipe.source[1][0]}}">{{ recipe.source[0][0] }}</a>
+    </div>
+  </div>
+</div>

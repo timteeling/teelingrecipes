@@ -1,0 +1,49 @@
+<div class="form-group {{field}}" ng-form="{{field}}" ng-class="{ 'has-error': {{field}}.$dirty && {{field}}.$invalid }">
+  <label>{{field | labelCase }} <span class="required" ng-if="required">*</span></label>
+
+  <div ng-if="record[field][1] === 'text' && field !== 'ingredients' && field !== 'steps' && field !== 'source'">
+    <div class="input-group" ng-switch="required">
+      <input ng-switch-when="true" ng-model="record[field][0]" type="text" required ng-change="update()" ng-blur="blurUpdate()" />
+
+      <div class="input-group" ng-switch-default>
+        <input ng-model="record[field][0]" type="text"  ng-change="update()" ng-blur="blurUpdate()" />
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="field === 'description'">
+    <div class="input-group" ng-switch="required">
+      <textarea ng-switch-when="true" ng-model="record[field][0]" required ng-change="update()" ng-blur="blurUpdate()" />
+    </div>
+  </div>
+
+  <div class="clearfix" ng-if="field === 'source'">
+    <div class="onehalf">
+      <input type="text" ng-model="record[field][0][0]" placeholder="Site Name" ng-change="update()" ng-blur="blurUpdate()" />
+    </div>
+    <div class="onehalf last">
+      <input type="text" ng-model="record[field][1][0]" placeholder="URL" ng-change="update()" ng-blur="blurUpdate()" />
+    </div>
+  </div>
+
+  <div ng-if="field === 'steps'">
+    <div class="input-group" ng-switch="required">
+      <textarea ng-switch-when="true" ng-model="record[field][0][0]" required ng-change="update()" ng-blur="blurUpdate()" />
+
+      <div class="input-group" ng-switch-default>
+        <textarea ng-model="record[field][0][0]" ng-change="update()" ng-blur="blurUpdate()" />
+      </div>
+    </div>
+  </div>
+
+  <div ng-if="field === 'ingredients'">
+    <div class="input-group" ng-switch="required">
+      <input type="text" ng-switch-when="true" ng-model="record[field][0][0]" required ng-change="update()" ng-blur="blurUpdate()" />
+
+      <div class="input-group" ng-switch-default>
+        <input type="text" ng-model="record[field][0][0]" ng-change="update()" ng-blur="blurUpdate()" />
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,15 +1,15 @@
 angular.module('RecipesApp')
-  .controller('ListController', function($scope, $rootScope, Recipe, $location, options){
+  .controller('ListController', function($scope, $rootScope, Recipe, $location){
     $rootScope.PAGE = 'all';
     $scope.recipes = Recipe.query();
-    $scope.fields = ['firstName', 'lastName'];
+    $scope.fields = ['title', 'description'];
 
     $scope.sort = function(field){
       $scope.sort.field = field;
       $scope.sort.order = !$scope.sort.order;
     };
 
-    $scope.sort.field = 'firstName';
+    $scope.sort.field = 'title';
     $scope.sort.order = false;
 
     $scope.show = function(id){
@@ -19,14 +19,21 @@ angular.module('RecipesApp')
   .controller('NewController', function($scope, $rootScope, Recipe, $location){
     $rootScope.PAGE = 'new';
     $scope.recipe = new Recipe({
-      firstName: ['', 'text'],
-      lastName: ['', 'text'],
-      email: ['', 'email'],
-      homePhone: ['', 'tel'],
-      cellPhone: ['', 'tel'],
-      birthday: ['', 'date'],
-      website: ['', 'url'],
-      address: ['', 'text']
+      title: ['', 'text'],
+      description: ['', 'textarea'],
+      time: ['', 'text'],
+      source: [
+        ['', 'text'],
+        ['', 'text']
+      ],
+      servings: ['', 'text'],
+      ingredients: [
+        ['', 'text']
+      ],
+      steps: [
+        ['', 'textarea']
+      ]
+
     });
 
     $scope.save = function(){

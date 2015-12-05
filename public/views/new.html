@@ -1,1 +1,30 @@
 <h1>New Recipe</h1>
+
+<form name="newRecipe" novalidate>
+  <div class="clearfix">
+    <div class="twothirds">
+      <form-field record="recipe" field="title" live="false" required="true"></form-field>
+      <form-field record="recipe" field="description" live="false" required="true"></form-field>
+    </div>
+    <div class="onethird last">
+      <form-field record="recipe" field="servings" live="false"></form-field>
+      <form-field record="recipe" field="time" live="false"></form-field>
+      <form-field record="recipe" field="source" live="false"></form-field>
+    </div>
+  </div>
+
+  <div class="clearfix">
+    <div class="onethird">
+      <form-field record="recipe" field="ingredients" live="false"></form-field>
+    </div>
+    <div class="twothirds last">
+      <form-field record="recipe" field="steps" live="false"></form-field>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-sm-offset-2">
+      <button class="btn btn-primary" ng-click="save()">Create Recipe</button>
+    </div>
+  </div>
+</form>

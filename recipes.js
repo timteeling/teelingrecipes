@@ -10,13 +10,14 @@ router.route('/api/recipes')
     res.json(recipes.toArray());
   })
   .post(function(req,res){
-    var recipes = req.body;
-    recipes.userId = req.user.cid;
+    var recipe = req.body;
+    recipe.userId = req.user.cid;
 
     // To be removed
-    recipes.fullname = req.user.fullname;
-    recipes.email = req.user.email;
+    recipe.username = req.user.username;
+    recipe.fullname = req.user.fullname;
+    recipe.email = req.user.email;
 
-    var id = recipes.insert(recipes);
+    var id = recipes.insert(recipe);
     res.json(recipes.get(id));
   });

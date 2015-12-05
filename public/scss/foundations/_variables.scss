@@ -1,6 +1,12 @@
 /* Variables */
-$color-link: #0071ce;
+$color-blue: #0071ce;
+$color-gray: #999;
+$color-white: #fff;
 
+$color-link: $color-blue;
+$color-primary: $color-blue;
+$color-secondary: $color-gray;
+$color-border: rgba(0,0,0,.2);
 
 /* Mixins */
 @mixin breakpoint($point) {
