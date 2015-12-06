@@ -1,3 +1,7 @@
+body {
+  font-family: merriweather, serif;
+}
+
 .content {
   background: $color-white;
 	padding: 2em;
@@ -8,6 +12,8 @@
 h1,h2,h3,h4,h5,h6 {
   line-height: 1.2;
   margin: 0;
+  color: $color-headings;
+  font-family: 'work sans', sans-serif;
 }
 
 h1 {
@@ -20,6 +26,19 @@ h2 {
 
 p {
   margin: 0 0 1.5em;
+}
+
+strong,
+label {
+  color: $color-headings;
+}
+
+strong,
+.header,
+a,
+button,
+label {
+  font-family: 'work sans', sans-serif;;
 }
 
 .home-header {

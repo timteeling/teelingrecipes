@@ -1,16 +1,20 @@
 /* Variables */
-$color-blue: #568085;
+$color-blue: #2196F3;
 $color-red: #F44336;
 $color-gray: #999;
 $color-white: #fff;
-$color-beige: #EFEBE9;
-$color-green: #4CAF50;
+$color-beige: #f9f9f7;
+$color-green: #009688;
+$color-gray: #555;
+$color-dark-gray: #333;
 
-$color-link: $color-red;
-$color-primary: #03A9F4;
+$color-link: $color-green;
+$color-primary: $color-green;
 $color-bg: $color-beige;
 $color-secondary: $color-gray;
 $color-border: rgba(0,0,0,.2);
+$color-text: $color-gray;
+$color-headings: $color-dark-gray;
 
 /* Mixins */
 @mixin breakpoint($point) {

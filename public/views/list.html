@@ -9,7 +9,7 @@
 
 <div class="row recipe-list" ng-repeat="recipe in recipes | filter: query | orderBy: sort.field : sort.order">
   <div class="twothirds">
-    <h3><a href="/recipes/{{recipe.cid}}">{{recipe.title[0]}}</a></h3>
+    <h2><a href="/recipes/{{recipe.cid}}">{{recipe.title[0]}}</a></h2>
     {{recipe.description[0]}}
   </div>
   <div class="onethird last">
