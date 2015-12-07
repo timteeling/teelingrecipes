@@ -79,12 +79,12 @@ router.get('/logout', function(req,res){
 });
 
 router
-  .all(loginRequired)
   .param('id', function(req,res,next){
     req.dbQuery = parseInt(req.params.id, 10);
     next();
   })
   .route('/reset/:id')
+    .all(loginRequired)
     .put(function (req, res) {
       firstname = req.body.firstname;
       lastname = req.body.lastname;

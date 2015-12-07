@@ -23,12 +23,12 @@ router.route('/api/recipes')
   });
 
 router
-  .all(login.required)
   .param('id', function(req,res,next){
     req.dbQuery = parseInt(req.params.id, 10);
     next();
   })
   .route('/api/recipes/:id')
+    .all(login.required)
     .get(function(req,res){
       var single = recipes.get(req.dbQuery);
       res.json(single);
