@@ -3,6 +3,10 @@ label {
   font-weight: bold;
 }
 
+.required {
+  color: $color-red;
+}
+
 input[type=text],
 input[type=email],
 input[type=password],
