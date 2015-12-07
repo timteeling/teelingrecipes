@@ -27,20 +27,6 @@ angular.module('RecipesApp')
         $scope.$on('record:invalid', function() {
           $scope[$scope.field].$setDirty();
         });
-
-        $scope.blurUpdate = function() {
-          if ($scope.live !== 'false') {
-            $scope.record.$update(function(updatedRecord) {
-              $scope.record = updatedRecord;
-            });
-          }
-        };
-        
-        var saveTimeout;
-        $scope.update = function() {
-          $timeout.cancel(saveTimeout);
-          saveTimeout = $timeout($scope.blurUpdate, 1000);
-        };
       }
     };
   });
