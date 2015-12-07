@@ -1,12 +1,18 @@
-<header role="banner" class="header">
+<header role="banner" class="header" ng-controller="NavController">
   <div class="container">
     <a class="logo" href="/"><span>Teeling</span><br> Family Recipes</a>
 
-    <nav class="nav">
-      <a href="/recipes/new">+ New Recipe</a>
-      <a href="/recipes/">All Recipes</a>
+    <a href="" class="nav-trigger" ng-click="toggle = !toggle">
+      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24" height="32" viewBox="0 0 24 32">
+        <path fill="#FFFFFF" d="M0 6v4h24v-4h-24zM0 18h24v-4h-24v4zM0 26h24v-4h-24v4z"></path>
+      </svg>
+    </a>
+
+    <nav class="nav" ng-class="{'nav-active' : toggle}">
+      <a href="/recipes/new" ng-click="closeNav('/recipes/new')">+ New Recipe</a>
+      <a href="/recipes/" ng-click="closeNav('/recipes')">All Recipes</a>
       <h5>Hi, {{user.firstname}}</h5>
-      <a href="/account">My Account</a>
+      <a href="/account" ng-click="closeNav('/account')">My Account</a>
       <a href="/logout" target="_self">Logout</a>
     </nav>
   </div>

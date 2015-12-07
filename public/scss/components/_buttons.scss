@@ -23,3 +23,12 @@
 .btn-group {
   margin: 2em 0;
 }
+
+.btn.alignright {
+  float: none;
+  margin-top: 2em;
+  @include breakpoint(small){
+    float: right;
+    margin-top: 0;
+  }
+}

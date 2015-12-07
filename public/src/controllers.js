@@ -1,4 +1,11 @@
 angular.module('RecipesApp')
+  .controller('NavController', function($scope, $rootScope){
+    $scope.toggle = false;
+    $scope.closeNav = function(newUrl){
+      $scope.toggle = false;
+      $location.url(newUrl);
+    }
+  })
   .controller('AccountController', function($scope, $http, $rootScope, $location){
     $rootScope.PAGE = 'account';
     $rootScope.user = USER;

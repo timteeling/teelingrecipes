@@ -2,16 +2,25 @@ body {
   font-family: merriweather, serif;
 }
 
-main {
-  margin-left: 15em;
-  padding: 0 4em;
+@include breakpoint(large){
+  main {
+    margin-left: 15em;
+    padding: 0 4em;
+  }
 }
 
 .content {
   background: $color-white;
-	padding: 2em;
-	margin: 2em auto 4em;
+	padding: 2em 1em;
+	margin: 3.5em auto 0;
   box-shadow: 0 .5em 1em rgba(0,0,0,.25);
+  @include breakpoint(small){
+    margin: 7em auto 0;
+    padding: 2em;
+  }
+  @include breakpoint(large){
+    margin: 2em auto 4em;
+  }
 }
 
 h1,h2,h3,h4,h5,h6 {
@@ -55,5 +64,8 @@ label {
   border-bottom: 1px solid rgba(0,0,0,.1);
   &:last-child {
     border-bottom: 0;
+  }
+  h2 {
+    margin-bottom: 0;
   }
 }

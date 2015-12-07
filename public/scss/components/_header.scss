@@ -6,12 +6,14 @@
   box-shadow: 0 .5em 1em rgba(0,0,0,.25);
   position: fixed;
   top: 0;
-  width: 15em;
-  height: 100vh;
-  float: left;
+  width: 100%;
+  @include breakpoint(large){
+    width: 15em;
+    height: 100vh;
+    float: left;
+  }
   .logo {
-    margin: .5em 0 2em;
-    font-size: 1.5em;
+    font-size: .75em;
     text-align: center;
     line-height: 1;
     span {
@@ -19,6 +21,19 @@
       text-transform: uppercase;
       letter-spacing: .05em;
       font-weight: bold;
+    }
+    @include breakpoint(small){
+      font-size: 1em;
+    }
+    @include breakpoint(large){
+      margin: .5em 0 2em;
+      font-size: 1.5em;
+    }
+  }
+  .nav {
+    display: none;
+    @include breakpoint(large){
+      display: block;
     }
   }
   a {
@@ -38,4 +53,21 @@
     margin-top: 2em;
     border-top: 1px solid rgba(0,0,0,.1);
   }
+}
+
+.nav-trigger {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  @include breakpoint(small){
+    top: 1.25em;
+  }
+  @include breakpoint(large){
+    display: none !important;
+  }
+}
+
+.header .nav-active {
+  padding-top: 2em;
+  display: block;
 }
