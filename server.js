@@ -3,12 +3,15 @@ var login = require('./login');
 var port = Number(process.env.PORT || 5000);
 
 express()
-  .set('view engine', 'html')
+  .set('view engine', 'ejs')
   .use(express.static('./public'))
   .use(login.routes)
   .use(require('./recipes'))
+  .get('/register', function(req,res){
+    res.render('register');
+  })
   .get('*', login.required, function(req,res){
-    res.sendfile('public/main.html', {
+    res.render('main', {
       user: login.safe(req.user)
     });
   })

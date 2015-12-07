@@ -7,14 +7,30 @@
   box-shadow: 0 .25em 1em rgba(0,0,0,.25);
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 15em;
+  height: 100vh;
+  float: left;
+  .logo {
+    margin: .5em 0 2em;
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 1;
+    span {
+      font-size: 1.75em;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-weight: bold;
+    }
+  }
   a {
     color: $color-white;
+    display: block;
   }
-  .nav {
-    float: right;
-    a:first-child {
-      margin-right: 1em;
+  .nav a {
+    padding: .5em;
+    &:hover {
+      background: rgba(0,0,0,.2);
+      border-radius: 3px;
     }
   }
 }

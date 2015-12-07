@@ -44,7 +44,7 @@ router.use(passport.initialize());
 router.use(passport.session());
 
 router.get('/login', function(req, res){
-  res.redirect('/login.html');
+  res.render('login');
 });
 
 router.post('/signup', function(req,res, next){
@@ -60,29 +60,29 @@ router.post('/signup', function(req,res, next){
 
     req.login(users.get(userId), function(err){
       if(err) return next(err);
-      res.redirect('/main.html');
+      res.redirect('/main');
     });
 
   } else {
-    res.redirect('/login.html');
+    res.render('login');
   }
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/main.html',
-  failureRedirect: '/login.html'
+  successRedirect: '/',
+  failureRedirect: '/'
 }));
 
 router.get('/logout', function(req,res){
   req.logout();
-  res.redirect('/login.html');
+  res.render('login');
 });
 
 function loginRequired (req,res,next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect('/login.html');
+    res.render('login');
   }
 }
 

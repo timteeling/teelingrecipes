@@ -2,10 +2,15 @@ body {
   font-family: merriweather, serif;
 }
 
+main {
+  margin-left: 15em;
+  padding: 0 4em;
+}
+
 .content {
   background: $color-white;
 	padding: 2em;
-	margin-top: 8em;
+	margin-top: 4em;
   box-shadow: 0 .5em 1em rgba(0,0,0,.25);
 }
 
