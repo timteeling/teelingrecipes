@@ -9,7 +9,7 @@ module.exports = function(grunt) {
 
     html2js: {
       options: {
-        // custom options, see below
+        base: 'public'
       },
       main: {
         src: ['public/views/*.html'],
@@ -31,14 +31,17 @@ module.exports = function(grunt) {
           'public/src/directives.js',
           'public/tmp/templates.js'
         ],
-        dest: 'public/js/main.js'
+        dest: 'public/tmp/main.js'
       }
     },
 
     uglify: {
+      options: {
+        mangle: false
+      },
       global: {
         files: {
-          "public/js/main.min.js": ["public/js/main.js"]
+          "public/js/main.min.js": ["public/tmp/main.js"]
         }
       }
     },
@@ -78,7 +81,7 @@ module.exports = function(grunt) {
 
   require("load-grunt-tasks")(grunt);
 
-  grunt.registerTask("serve", ["shell:nodeServer"]);
-  grunt.registerTask("default", ["sass", "html2js", "concat", "uglify", "watch"]);
+  grunt.registerTask("default", ["shell:nodeServer"]);
+  grunt.registerTask("build", ["sass", "html2js", "concat", "uglify", "watch"]);
 
 };
