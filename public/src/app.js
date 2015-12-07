@@ -1,4 +1,4 @@
-angular.module('RecipesApp', ['ngRoute', 'ngResource', 'ngMessages'])
+angular.module('RecipesApp', ['templates-main', 'ngRoute', 'ngResource', 'ngMessages'])
   .config(function($routeProvider, $locationProvider){
     $routeProvider
       .when('/recipes', {

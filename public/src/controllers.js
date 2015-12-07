@@ -1,10 +1,11 @@
 angular.module('RecipesApp')
-  .controller('NavController', function($scope, $rootScope){
+  .controller('NavController', function($scope, $rootScope, $location){
     $scope.toggle = false;
+
     $scope.closeNav = function(newUrl){
       $scope.toggle = false;
       $location.url(newUrl);
-    }
+    };
   })
   .controller('AccountController', function($scope, $http, $rootScope, $location){
     $rootScope.PAGE = 'account';
@@ -20,6 +21,7 @@ angular.module('RecipesApp')
   .controller('ListController', function($scope, $rootScope, Recipe, $location){
     $rootScope.PAGE = 'all';
     $rootScope.user = USER;
+    $scope.user = $rootScope.user;
 
     $scope.recipes = Recipe.query();
     $scope.fields = ['title', 'description'];
@@ -38,6 +40,9 @@ angular.module('RecipesApp')
   })
   .controller('NewController', function($scope, $rootScope, Recipe, $location){
     $rootScope.PAGE = 'new';
+    $rootScope.user = USER;
+    $scope.user = $rootScope.user;
+
     $scope.recipe = new Recipe({
       title: ['', 'text'],
       description: ['', 'textarea'],
@@ -86,10 +91,16 @@ angular.module('RecipesApp')
   })
   .controller('SingleController', function($scope, $rootScope, $location, Recipe, $routeParams){
     $rootScope.PAGE = 'single';
+    $rootScope.user = USER;
+    $scope.user = $rootScope.user;
+
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });
   })
   .controller('EditController', function($scope, $rootScope, $location, $timeout, $http, Recipe, $routeParams){
     $rootScope.PAGE = 'edit';
+    $rootScope.user = USER;
+    $scope.user = $rootScope.user;
+
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });
 
     $scope.addIngredient = function(){
