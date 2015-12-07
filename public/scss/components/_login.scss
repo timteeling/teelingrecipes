@@ -1,8 +1,33 @@
 .login-form {
-  margin-top: 8em;
-  .onehalf {
+  margin-top: 2em;
+  .onehalf.aligncenter {
     padding: 2em;
     background: $color-white;
     box-shadow: 0 .5em 1em rgba(0,0,0,.25);
+  }
+}
+
+.circle {
+  background: #009688;
+  padding: .5em;
+  width: 10em;
+  height: 10em;
+  margin: 0 auto 2em;
+  border-radius: 50%;
+  .logo {
+  	font-family: 'work sans';
+    margin: 0 auto;
+    margin: .5em 0 2em;
+    font-size: 1em;
+    text-align: center;
+    line-height: 1;
+    color: #fff;
+    padding-top: 2.5em;
+    span {
+      font-size: 1.7em;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-weight: bold;
+    }
   }
 }

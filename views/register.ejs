@@ -10,13 +10,20 @@
 <body>
   <div class="row login-form">
     <div class="container">
+      <div class="circle"><div class="logo"><span>Teeling</span><br> Family Recipes</div></div>
       <div class="onehalf aligncenter">
         <h2>Register</h2>
         <form action="/signup" method="POST">
-          <p>
-            <label>Full Name</label>
-            <input type="text" name="fullname"  />
-          </p>
+          <div class="clearfix mb-1">
+            <p class="onehalf">
+              <label>First Name</label>
+              <input type="text" name="firstname"  />
+            </p>
+            <p class="onehalf last">
+              <label>Last Name</label>
+              <input type="text" name="lastname"  />
+            </p>
+          </div>
           <p>
             <label>Email</label>
             <input type="email" name="username"  />

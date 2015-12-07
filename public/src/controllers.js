@@ -1,6 +1,19 @@
 angular.module('RecipesApp')
+  .controller('AccountController', function($scope, $http, $rootScope, $location){
+    $rootScope.PAGE = 'account';
+    $rootScope.user = USER;
+    $scope.user = $rootScope.user;
+    $scope.user.password = '';
+
+    $scope.updatePassword = function(cid){
+      $http.put('/reset/' + $scope.user.cid, $scope.user);
+      $location.url('/recipes');
+    };
+  })
   .controller('ListController', function($scope, $rootScope, Recipe, $location){
     $rootScope.PAGE = 'all';
+    $rootScope.user = USER;
+
     $scope.recipes = Recipe.query();
     $scope.fields = ['title', 'description'];
 

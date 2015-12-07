@@ -17,6 +17,10 @@ angular.module('RecipesApp', ['ngRoute', 'ngResource', 'ngMessages'])
         controller: 'EditController',
         templateUrl: 'views/edit.html'
       })
+      .when('/account', {
+        controller: 'AccountController',
+        templateUrl: 'views/account.html'
+      })
       .otherwise({
         redirectTo: '/recipes'
       });

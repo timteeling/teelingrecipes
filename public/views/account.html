@@ -1,0 +1,22 @@
+<h1>{{user.firstname}} {{user.lastname}}</h1>
+
+<p><strong>Email:</strong> {{user.username}}</p>
+
+<h3 class="mb-1">Update Information</h3>
+<form name="newRecipe" class="onehalf" novalidate>
+  <div class="form-group clearfix">
+    <div class="onehalf" ng-form="firstname">
+      <label for="password">First Name</label>
+      <input ng-model="user.firstname" type="text" name="firstname" />
+    </div>
+    <div class="onehalf last" ng-form="lastname">
+      <label for="password">Last Name</label>
+      <input ng-model="user.lastname" type="text" name="lastname" />
+    </div>
+  </div>
+  <div class="form-group" ng-form="password">
+    <label for="password">New Password</label>
+    <input ng-model="user.password" type="password" name="password" />
+  </div>
+  <button class="btn btn-primary" ng-click="updateInfo(user.cid)">Update</button> <a class="btn btn-link" href="/resources">Cancel</a>
+</form>

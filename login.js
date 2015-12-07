@@ -50,10 +50,10 @@ router.get('/login', function(req, res){
 router.post('/signup', function(req,res, next){
   if(users.where({ username: req.body.username }).items.length === 0) {
     var user = {
-      fullname: req.body.fullname,
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
       username: req.body.username,
       passwordHash: hash(req.body.password),
-      following: []
     };
 
     var userId = users.insert(user);
@@ -78,6 +78,23 @@ router.get('/logout', function(req,res){
   res.render('login');
 });
 
+router
+  .all(loginRequired)
+  .param('id', function(req,res,next){
+    req.dbQuery = parseInt(req.params.id, 10);
+    next();
+  })
+  .route('/reset/:id')
+    .put(function (req, res) {
+      firstname = req.body.firstname;
+      lastname = req.body.lastname;
+      passwordHash = hash(req.body.password);
+
+      users.update(req.body.cid, {'firstname': firstname, 'lastname': lastname, 'passwordHash': passwordHash}, function(err,data){
+        res.json(data[0]);
+      });
+    });
+
 function loginRequired (req,res,next) {
   if (req.isAuthenticated()) {
     next();
@@ -88,7 +105,7 @@ function loginRequired (req,res,next) {
 
 function makeUserSafe (user) {
   var safeUser = {};
-  var safeKeys = ['cid', 'fullname', 'username'];
+  var safeKeys = ['cid', 'firstname', 'lastname', 'username'];
 
   safeKeys.forEach(function(key){
     safeUser[key] = user[key];

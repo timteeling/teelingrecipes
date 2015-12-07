@@ -38,10 +38,9 @@
     </div>
   </div>
 
-  <div class="row form-group">
-    <div class="col-sm-offset-2">
-      <button class="btn btn-primary" ng-click="updateAll()">Update Recipe</button>
-      <button class="btn btn-delete" ng-click="delete()">Delete Recipe</button>
-    </div>
+  <div class="row btn-group">
+    <button class="btn btn-primary" ng-click="updateAll()">Update Recipe</button>
+    <a class="btn btn-link" href="/recipes/{{recipe.cid}}">Cancel</a>
+    <button class="btn btn-delete alignright" ng-click="delete()">Delete Recipe</button>
   </div>
 </form>
