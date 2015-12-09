@@ -13,9 +13,18 @@ angular.module('RecipesApp')
     $scope.user = $rootScope.user;
     $scope.user.password = '';
 
-    $scope.updatePassword = function(cid){
-      $http.put('/reset/' + $scope.user.cid, $scope.user);
+    $scope.updateInfo = function(cid){
+      $http.put('/reset/' + $scope.user.cid, {'cid': $scope.user.cid, 'firstname': $scope.user.firstname, 'lastname': $scope.user.lastname });
       $location.url('/recipes');
+    };
+
+    $scope.updatePassword = function(cid){
+      if($scope.user.password.length > 0) {
+        $http.put('/reset/' + $scope.user.cid, $scope.user);
+        $location.url('/recipes');
+      } else {
+        alert('Need to fill in password');
+      }
     };
   })
   .controller('ListController', function($scope, $rootScope, Recipe, $location){

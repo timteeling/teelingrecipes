@@ -14,9 +14,11 @@
       <input ng-model="user.lastname" type="text" name="lastname" />
     </div>
   </div>
+  <button class="btn btn-primary mb-1" ng-click="updateInfo(user.cid)">Update name</button>
+
   <div class="form-group" ng-form="password">
     <label for="password">New Password</label>
     <input ng-model="user.password" type="password" name="password" />
   </div>
-  <button class="btn btn-primary" ng-click="updateInfo(user.cid)">Update</button> <a class="btn btn-link" href="/resources">Cancel</a>
+  <button class="btn btn-primary" ng-click="updatePassword(user.cid)">Update password</button>
 </form>

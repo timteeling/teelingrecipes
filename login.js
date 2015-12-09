@@ -88,9 +88,16 @@ router
     .put(function (req, res) {
       firstname = req.body.firstname;
       lastname = req.body.lastname;
-      passwordHash = hash(req.body.password);
+      var updateUser = {};
 
-      users.update(req.body.cid, {'firstname': firstname, 'lastname': lastname, 'passwordHash': passwordHash}, function(err,data){
+      if(req.body.password){
+        passwordHash = hash(req.body.password);
+        updateUser = {'firstname': firstname, 'lastname': lastname, 'passwordHash': passwordHash};
+      } else {
+        updateUser = {'firstname': firstname, 'lastname': lastname};
+      }
+
+      users.update(req.body.cid, updateUser, function(err,data){
         res.json(data[0]);
       });
     });
