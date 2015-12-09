@@ -1,0 +1,15 @@
+.message {
+  padding: 1em;
+  background: $color-yellow;
+  border: 1px solid rgba(0,0,0,.1);
+  font-family: 'work sans', sans-serif;
+}
+
+.message-success {
+  background: $color-success;
+}
+
+.message-fail {
+  background: $color-fail;
+  color: $color-white;
+}

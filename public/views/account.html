@@ -2,6 +2,10 @@
 
 <p><strong>Email:</strong> {{user.username}}</p>
 
+  <div class="message message-success mb-1" ng-if="nameUpdate == true">Name Updated</div>
+  <div class="message message-success mb-1" ng-if="passwordUpdate == true">Password Updated</div>
+  <div class="message message-fail mb-1" ng-if="passwordFail == true">Password can't be blank!</div>
+
 <h3 class="mb-1">Update Information</h3>
 <form name="newRecipe" class="onehalf" novalidate>
   <div class="form-group clearfix">

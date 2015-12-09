@@ -7,6 +7,7 @@ $color-beige: #f9f9f7;
 $color-green: #009688;
 $color-gray: #555;
 $color-dark-gray: #333;
+$color-yellow: #FFE082;
 
 $color-link: $color-green;
 $color-primary: $color-green;
@@ -15,6 +16,8 @@ $color-secondary: $color-gray;
 $color-border: rgba(0,0,0,.2);
 $color-text: $color-gray;
 $color-headings: $color-dark-gray;
+$color-success: #69F0AE;
+$color-fail: $color-red;
 
 /* Mixins */
 @mixin breakpoint($point) {
