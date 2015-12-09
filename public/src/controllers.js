@@ -118,6 +118,7 @@ angular.module('RecipesApp')
     $rootScope.PAGE = 'edit';
     $rootScope.user = USER;
     $scope.user = $rootScope.user;
+    $scope.modal = false;
 
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });
 
@@ -155,7 +156,16 @@ angular.module('RecipesApp')
     };
 
     $scope.delete = function(){
+      window.scrollTo(0, 0);
+      $scope.modal = true;
+    };
+
+    $scope.confirmDelete = function(){
       $http.delete('/api/recipes/' + parseInt($routeParams.id, 10));
       $location.url('/recipes');
+    };
+
+    $scope.dismissDelete = function(){
+      $scope.modal = false;
     };
   });

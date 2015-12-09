@@ -43,4 +43,11 @@
     <a class="btn btn-link" href="/recipes/{{recipe.cid}}">Cancel</a>
     <button class="btn btn-delete alignright" ng-click="delete()">Delete Recipe</button>
   </div>
+
+  <div class="modal" ng-if="modal == true">
+    <h3 class="mb-1">Delete {{recipe.title[0]}}?</h3>
+    <button class="btn btn-delete" ng-click="confirmDelete()">Delete</button>
+    <button class="btn btn-link" ng-click="dismissDelete()">Cancel</button>
+  </div>
+  <div class="modal-overlay" ng-if="modal == true"></div>
 </form>
