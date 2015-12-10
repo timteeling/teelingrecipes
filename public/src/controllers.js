@@ -60,6 +60,7 @@ angular.module('RecipesApp')
     $rootScope.PAGE = 'new';
     $rootScope.user = USER;
     $scope.user = $rootScope.user;
+    $scope.imageUploaded = false;
 
     $scope.recipe = new Recipe({
       title: ['', 'text'],
@@ -85,13 +86,19 @@ angular.module('RecipesApp')
       autoUpload: true,
       alias: 'recipe'
     });
-    
+
+    $scope.removePhoto = function(){
+      $scope.recipe.image = '';
+      $scope.imageUploaded = false;
+    };
+
     // CALLBACKS
     uploader.onErrorItem = function(fileItem, response, status, headers) {
       console.info('onErrorItem', fileItem, response, status, headers);
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
       $scope.recipe.image = response.filename;
+      $scope.imageUploaded = true;
     };
 
     $scope.addIngredient = function(){
