@@ -56,7 +56,7 @@ angular.module('RecipesApp')
       $location.url('/recipes/' + id);
     };
   })
-  .controller('NewController', function($scope, $rootScope, Recipe, $location){
+  .controller('NewController', function($scope, $rootScope, Recipe, $location, FileUploader){
     $rootScope.PAGE = 'new';
     $rootScope.user = USER;
     $scope.user = $rootScope.user;
@@ -79,6 +79,20 @@ angular.module('RecipesApp')
       ]
 
     });
+
+    var uploader = $scope.uploader = new FileUploader({
+      url: '/api/upload',
+      autoUpload: true,
+      alias: 'recipe'
+    });
+    
+    // CALLBACKS
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+      console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+      $scope.recipe.image = response.filename;
+    };
 
     $scope.addIngredient = function(){
       $scope.recipe['ingredients'].push(['', 'text']);

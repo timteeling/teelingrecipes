@@ -24,6 +24,7 @@ module.exports = function(grunt) {
           'public/lib/angular-route/angular-route.min.js',
           'public/lib/angular-resource/angular-resource.min.js',
           'public/lib/angular-messages/angular-messages.min.js',
+          'public/lib/angular-file-upload/dist/angular-file-upload.min.js',
           'public/src/app.js',
           'public/src/controllers.js',
           'public/src/factories.js',

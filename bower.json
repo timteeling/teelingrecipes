@@ -21,6 +21,7 @@
     "angular": "~1.4.8",
     "angular-route": "~1.4.8",
     "angular-resource": "~1.4.8",
-    "angular-messages": "~1.4.8"
+    "angular-messages": "~1.4.8",
+    "angular-file-upload": "~2.2.0"
   }
 }

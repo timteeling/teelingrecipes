@@ -5,6 +5,9 @@
     <div class="twothirds">
       <form-field record="recipe" field="title" live="false" required="true"></form-field>
       <form-field record="recipe" field="description" live="false" required="true"></form-field>
+      <label>Upload image</label>
+      <input type="file" nv-file-select="" uploader="uploader" name="recipeimage" />
+      <div ng-if="recipe.image.length > 0"><img ng-src="/img/uploads/{{recipe.image}}"></div>
     </div>
     <div class="onethird last">
       <form-field record="recipe" field="servings" live="false"></form-field>
@@ -13,7 +16,7 @@
     </div>
   </div>
 
-  <div class="clearfix">
+  <div class="clearfix mt-2">
     <div class="onethird ingredients-area">
       <div class="form-group" ng-form="ingredients">
         <h2>Ingredients</h2>

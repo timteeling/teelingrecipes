@@ -1,6 +1,10 @@
 <div class="row">
   <div class="twothirds">
-    <h1>{{recipe.title[0]}}</h3>
+    <div ng-if="recipe.image.length > 0">
+      <img ng-src="/img/uploads/{{recipe.image}}">
+    </div>
+    
+    <h1>{{recipe.title[0]}}</h1>
     <p>{{recipe.description[0]}}</p>
   </div>
   <div class="onethird last">
