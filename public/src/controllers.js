@@ -56,10 +56,11 @@ angular.module('RecipesApp')
       $location.url('/recipes/' + id);
     };
   })
-  .controller('NewController', function($scope, $rootScope, Recipe, $location){
+  .controller('NewController', function($scope, $rootScope, Recipe, $location, FileUploader){
     $rootScope.PAGE = 'new';
     $rootScope.user = USER;
     $scope.user = $rootScope.user;
+    $scope.imageUploaded = false;
 
     $scope.recipe = new Recipe({
       title: ['', 'text'],
@@ -79,6 +80,26 @@ angular.module('RecipesApp')
       ]
 
     });
+
+    var uploader = $scope.uploader = new FileUploader({
+      url: '/api/upload',
+      autoUpload: true,
+      alias: 'recipe'
+    });
+
+    $scope.removePhoto = function(){
+      $scope.recipe.image = '';
+      $scope.imageUploaded = false;
+    };
+
+    // CALLBACKS
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+      console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+      $scope.recipe.image = response.filename;
+      $scope.imageUploaded = true;
+    };
 
     $scope.addIngredient = function(){
       $scope.recipe['ingredients'].push(['', 'text']);
@@ -114,13 +135,39 @@ angular.module('RecipesApp')
 
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });
   })
-  .controller('EditController', function($scope, $rootScope, $location, $timeout, $http, Recipe, $routeParams){
+  .controller('EditController', function($scope, $rootScope, $location, $timeout, $http, Recipe, FileUploader, $routeParams){
     $rootScope.PAGE = 'edit';
     $rootScope.user = USER;
     $scope.user = $rootScope.user;
     $scope.modal = false;
 
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });
+
+    if(!$scope.recipe.image) {
+      $scope.imageUploaded = false;
+    } else {
+      $scope.imageUploaded = true;
+    }
+
+    var uploader = $scope.uploader = new FileUploader({
+      url: '/api/upload',
+      autoUpload: true,
+      alias: 'recipe'
+    });
+
+    $scope.removePhoto = function(){
+      $scope.recipe.image = '';
+      $scope.imageUploaded = false;
+    };
+
+    // CALLBACKS
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+      console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+      $scope.recipe.image = response.filename;
+      $scope.imageUploaded = true;
+    };
 
     $scope.addIngredient = function(){
       $scope.recipe['ingredients'].push(['', 'text']);

@@ -27,6 +27,10 @@
   float: right;
 }
 
+.block {
+  display: block;
+}
+
 .relative {
   position: relative;
 }
@@ -41,4 +45,26 @@
 
 .mb-1-1-2 {
   margin-bottom: 1.5em;
+}
+
+.mt-1 {
+  margin-top: 1em;
+}
+
+.mt-2 {
+  margin-top: 2em;
+}
+
+.flex-embed-16by9 {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  background-size: cover;
+}
+
+.flex-embed-16by9:before {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-bottom: 56.25%;
 }

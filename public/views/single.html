@@ -1,9 +1,31 @@
-<div class="row">
+<div ng-if="!recipe.image.length" class="row">
   <div class="twothirds">
-    <h1>{{recipe.title[0]}}</h3>
+    <h1>{{recipe.title[0]}}</h1>
     <p>{{recipe.description[0]}}</p>
   </div>
   <div class="onethird last">
+    <div ng-if="recipe.servings[0].length > 0" class="servings">
+      <strong>Servings:</strong> {{ recipe.servings[0] }}
+    </div>
+    <div ng-if="recipe.time[0].length > 0" class="time">
+      <strong>Time:</strong> {{ recipe.time[0] }}
+    </div>
+    <div ng-if="recipe.source[0][0].length > 0" class="source">
+      <strong>Source:</strong> <a target="_blank" href="{{ recipe.source[1][0]}}">{{ recipe.source[0][0] }}</a>
+    </div>
+  </div>
+</div>
+
+<div ng-if="recipe.image.length > 0" class="row">
+  <div class="onehalf">
+    <div ng-if="recipe.image.length > 0">
+      <div class="flex-embed-16by9" ng-style="{'background-image':'url(/img/uploads/{{recipe.image}})'}"></div>
+    </div>
+
+  </div>
+  <div class="onehalf last">
+    <h1>{{recipe.title[0]}}</h1>
+    <p>{{recipe.description[0]}}</p>
     <div ng-if="recipe.servings[0].length > 0" class="servings">
       <strong>Servings:</strong> {{ recipe.servings[0] }}
     </div>
