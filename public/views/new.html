@@ -5,9 +5,10 @@
     <div class="twothirds">
       <form-field record="recipe" field="title" live="false" required="true"></form-field>
       <form-field record="recipe" field="description" live="false" required="true"></form-field>
-      <label>Upload image</label>
+      <h3 class="mb-1-2">Image</h3>
       <div ng-if="imageUploaded == false">
-        <input type="file" nv-file-select="" uploader="uploader" name="recipeimage" />
+        <input type="file" id="recipeimage" nv-file-select="" uploader="uploader" name="recipeimage" />
+        <label class="label-button" nv-file-select="" uploader="uploader" for="recipeimage">Choose an image</label>
       </div>
       <div ng-if="recipe.image.length > 0">
         <img ng-src="/img/uploads/{{recipe.image}}">

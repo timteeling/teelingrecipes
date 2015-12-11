@@ -26,6 +26,24 @@ input[type=search] {
   padding-left: 2em;
 }
 
+input[type=file] {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.label-button {
+  padding: .5em 1em;
+  font-weight: normal;
+  display: inline-block;
+  background: $color-gray;
+  color: $color-white;
+  cursor: pointer;
+}
+
 .search-icon {
   position: absolute;
   top: .375em;
