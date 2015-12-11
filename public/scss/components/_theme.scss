@@ -70,6 +70,20 @@ label {
   }
 }
 
+.image-row {
+  padding-top: 0;
+  .onehalf {
+    float: none;
+    width: 100%;
+    margin: 0 0 1em;
+    @include breakpoint(xlarge){
+      float: left;
+      width: 47.5%;
+      margin: 0 5% 0 0;
+    }
+  }
+}
+
 .ingredient {
   line-height: 1.25;
   margin-bottom: 1em;
