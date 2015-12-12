@@ -3,6 +3,8 @@ var login = require('./login');
 var port = Number(process.env.PORT || 5000);
 var multer = require('multer');
 var path = require('path');
+var fs = require('fs');
+var gm = require('gm');
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -32,7 +34,16 @@ express()
   })
   .post('/api/upload', upload.single('recipe'), function(req,res,next){
     console.log(req.file);
-    res.json({'filename': req.file.filename });
+
+    var resizeFile = req.file.filename;
+    gm('./public/img/uploads/' + resizeFile)
+    .resize('1000>')
+    .quality(75)
+    .noProfile()
+    .write('./public/img/recipes/' + resizeFile, function (err) {
+      if (!err) res.json({'filename': req.file.filename });
+    });
+
   })
   .listen(port, function() {
     console.log('Node app is running on port', port);

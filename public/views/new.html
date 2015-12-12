@@ -11,7 +11,7 @@
         <label class="label-button" nv-file-select="" uploader="uploader" for="recipeimage">Choose an image</label>
       </div>
       <div ng-if="recipe.image.length > 0">
-        <img ng-src="/img/uploads/{{recipe.image}}">
+        <img ng-src="/img/recipes/{{recipe.image}}">
         <a href="" class="block" ng-click="removePhoto()">Remove photo</a>
       </div>
     </div>
