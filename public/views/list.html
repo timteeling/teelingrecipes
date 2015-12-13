@@ -13,7 +13,7 @@
 <div class="row recipe-list" ng-repeat="recipe in recipes | filter: query | orderBy: sort.field : sort.order">
   <div class="twothirds">
     <h2><a href="/recipes/{{recipe.cid}}">{{recipe.title[0]}}</a></h2>
-    {{recipe.description[0]}}
+    <div class="description" ng-bind-html="recipe.description[0] | md"></div>
   </div>
   <div class="onethird last">
     <div ng-if="recipe.servings[0].length > 0" class="servings">

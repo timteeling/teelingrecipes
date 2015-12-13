@@ -1,7 +1,7 @@
 <div ng-if="!recipe.image.length" class="row">
   <div class="twothirds">
     <h1>{{recipe.title[0]}}</h1>
-    <p>{{recipe.description[0]}}</p>
+    <div class="description" ng-bind-html="recipe.description[0] | md"></div>
   </div>
   <div class="onethird last">
     <div ng-if="recipe.servings[0].length > 0" class="servings">
@@ -25,7 +25,7 @@
   </div>
   <div class="onehalf last">
     <h1>{{recipe.title[0]}}</h1>
-    <p>{{recipe.description[0]}}</p>
+    <div class="description" ng-bind-html="recipe.description[0] | md"></div>
     <div ng-if="recipe.servings[0].length > 0" class="servings">
       <strong>Servings:</strong> {{ recipe.servings[0] }}
     </div>
@@ -41,15 +41,13 @@
 <div class="row">
   <div class="onethird">
     <h2>Ingredients</h2>
-    <div class="ingredient" ng-repeat="ingredient in recipe.ingredients">
-      {{ingredient[0]}}
-    </div>
+    <div class="ingredient" ng-repeat="ingredient in recipe.ingredients" ng-bind-html="ingredient[0] | md"></div>
   </div>
   <div class="twothirds last">
     <h2>Steps</h2>
-    <div ng-repeat="step in recipe.steps">
+    <div class="step" ng-repeat="step in recipe.steps">
       <h4>Step {{$index + 1}}</h4>
-      <p>{{step[0]}}</p>
+      <div ng-bind-html="step[0] | md"></div>
     </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-angular.module('RecipesApp', ['templates-main', 'ngRoute', 'ngResource', 'ngMessages', 'angularFileUpload'])
+angular.module('RecipesApp', ['templates-main', 'ngRoute', 'ngResource', 'ngMessages', 'ngSanitize', 'angularFileUpload'])
   .config(function($routeProvider, $locationProvider){
     $routeProvider
       .when('/recipes', {

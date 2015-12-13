@@ -22,4 +22,11 @@ angular.module('RecipesApp')
       });
       return result;
     };
+  })
+  .filter('md', function(){
+    return function(input){
+      var converter = new showdown.Converter();
+      input = converter.makeHtml(input);
+      return input;
+    };
   });

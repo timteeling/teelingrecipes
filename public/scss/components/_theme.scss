@@ -84,7 +84,20 @@ label {
   }
 }
 
-.ingredient {
+.ingredient p {
   line-height: 1.25;
   margin-bottom: 1em;
+  strong {
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+}
+
+.step {
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  margin-bottom: 1.5em;
+  &:last-child {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
 }
