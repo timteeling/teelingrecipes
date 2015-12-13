@@ -87,8 +87,8 @@ router
     req.dbQuery = parseInt(req.params.id, 10);
     next();
   })
-  .route('/reset/:id')
-    .all(loginRequired)
+  .route('/api/users/:id')
+    //.all(loginRequired)
     .put(function (req, res) {
       firstname = req.body.firstname;
       lastname = req.body.lastname;
@@ -104,7 +104,29 @@ router
       users.update(req.body.cid, updateUser, function(err,data){
         res.json(data[0]);
       });
+    })
+    .delete(function(req,res){
+      users.remove(req.dbQuery);
+      res.json(null);
     });
+
+router.route('/api/users')
+  .all(loginRequired)
+  .get(function(req,res){
+    var usersArr = users.toArray();
+    var safeArr = [];
+    //safeArr.push.apply(safeArr, usersArr);
+
+    for (i = 0; i < usersArr.length; i++) {
+      safeArr.push({
+        username: usersArr[i].username,
+        firstname: usersArr[i].firstname,
+        lastname: usersArr[i].lastname,
+        cid: usersArr[i].cid
+      });
+    }
+    res.json(safeArr);
+  });
 
 function loginRequired (req,res,next) {
   if (req.isAuthenticated()) {

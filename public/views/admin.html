@@ -1,0 +1,11 @@
+<h1>Admin</h1>
+
+<div class="row" ng-repeat="user1 in users">
+  <div class="twothirds">
+    <h3>{{user1.firstname}} {{user1.lastname}}</h3>
+    <p>{{user1.username}}</p>
+  </div>
+  <div class="onethird last">
+    <button ng-if="user.cid !== user1.cid" class="btn btn-delete" ng-click="delete(user1.cid)">Delete</button>
+  </div>
+</div>

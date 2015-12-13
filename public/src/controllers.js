@@ -7,6 +7,15 @@ angular.module('RecipesApp')
       $location.url(newUrl);
     };
   })
+  .controller('AdminController', function($scope, $http, User, $rootScope, $location){
+    $scope.users = User.query();
+    $rootScope.user = USER;
+
+    $scope.delete = function(cid){
+      $http.delete('/api/users/' + cid);
+      $location.url('/recipes');
+    };
+  })
   .controller('AccountController', function($scope, $http, $rootScope, $location){
     $rootScope.PAGE = 'account';
     $rootScope.user = USER;
@@ -17,7 +26,7 @@ angular.module('RecipesApp')
     $scope.passwordFail = false;
 
     $scope.updateInfo = function(cid){
-      $http.put('/reset/' + $scope.user.cid, {'cid': $scope.user.cid, 'firstname': $scope.user.firstname, 'lastname': $scope.user.lastname });
+      $http.put('/api/users/' + $scope.user.cid, {'cid': $scope.user.cid, 'firstname': $scope.user.firstname, 'lastname': $scope.user.lastname });
       $scope.nameUpdate = true;
       $scope.passwordUpdate = false;
       $scope.passwordFail = false;
@@ -25,7 +34,7 @@ angular.module('RecipesApp')
 
     $scope.updatePassword = function(cid){
       if($scope.user.password.length > 0) {
-        $http.put('/reset/' + $scope.user.cid, $scope.user);
+        $http.put('/api/users/' + $scope.user.cid, $scope.user);
         $scope.passwordUpdate = true;
         $scope.passwordFail = false;
         $scope.nameUpdate = false;

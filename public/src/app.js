@@ -21,6 +21,10 @@ angular.module('RecipesApp', ['templates-main', 'ngRoute', 'ngResource', 'ngMess
         controller: 'AccountController',
         templateUrl: 'views/account.html'
       })
+      .when('/admin', {
+        controller: 'AdminController',
+        templateUrl: 'views/admin.html'
+      })
       .otherwise({
         redirectTo: '/recipes'
       });
