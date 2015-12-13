@@ -29,14 +29,4 @@ angular.module('RecipesApp')
         });
       }
     };
-  })
-  .directive('markdown', function () {
-    var converter = new showdown.Converter();
-    return {
-      restrict: 'A',
-      link: function (scope, element, attrs) {
-        var htmlText = converter.makeHtml(element.html());
-        element.html(htmlText);
-      }
-    };
   });
