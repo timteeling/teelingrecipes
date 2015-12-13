@@ -28,7 +28,10 @@
       <div class="circle"><div class="logo"><span>Teeling</span><br> Family Recipes</div></div>
       <div class="onehalf aligncenter">
         <h2>Register</h2>
-        <form action="/signup" method="POST">
+        <% if (message.length > 0) { %>
+          <div class="message message-fail mb-1"><%= message %></div>
+        <% } %>
+        <form action="/register" method="POST">
           <div class="clearfix mb-1">
             <p class="onehalf">
               <label>First Name</label>

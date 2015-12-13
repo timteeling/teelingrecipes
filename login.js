@@ -1,6 +1,6 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
-
+var flash = require('connect-flash');
 var LocallyDB = require('locallydb');
 var db = new LocallyDB('./.data');
 var users = db.collection('users');
@@ -11,13 +11,16 @@ function hash (password) {
   return crypto.createHash('sha512').update(password).digest('hex');
 }
 
-passport.use(new LocalStrategy(function(username, password, done){
+passport.use('local', new LocalStrategy({
+  passReqToCallback: true
+},
+function(req, username, password, done){
   var user = users.where({ username: username, passwordHash: hash(password) }).items[0];
 
   if(user) {
     done(null, user);
   } else {
-    done(null, false);
+    done(null, false, req.flash('loginMessage', 'Incorrect Login'));
   }
 }));
 
@@ -42,12 +45,12 @@ router.use(require('express-session')({
 }));
 router.use(passport.initialize());
 router.use(passport.session());
-
+router.use(flash());
 router.get('/login', function(req, res){
-  res.render('login');
+  res.render('login', {message: req.flash('loginMessage')});
 });
 
-router.post('/signup', function(req,res, next){
+router.post('/register', function(req,res, next){
   if(users.where({ username: req.body.username }).items.length === 0) {
     var user = {
       firstname: req.body.firstname,
@@ -64,18 +67,19 @@ router.post('/signup', function(req,res, next){
     });
 
   } else {
-    res.render('login');
+    res.render('register', {message: 'Email already taken'});
   }
 });
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: '/'
+  failureRedirect: '/',
+  failureFlash: true
 }));
 
 router.get('/logout', function(req,res){
   req.logout();
-  res.render('login');
+  res.redirect('/');
 });
 
 router
@@ -106,7 +110,7 @@ function loginRequired (req,res,next) {
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.render('login');
+    res.render('login', {message: req.flash('loginMessage')});
   }
 }
 

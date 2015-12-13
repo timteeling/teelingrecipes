@@ -25,7 +25,7 @@ express()
   .use(login.routes)
   .use(require('./recipes'))
   .get('/register', function(req,res){
-    res.render('register');
+    res.render('register', {message: req.flash('loginMessage')});
   })
   .get('*', login.required, function(req,res){
     res.render('main', {
