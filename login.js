@@ -88,7 +88,7 @@ router
     next();
   })
   .route('/api/users/:id')
-    //.all(loginRequired)
+    .all(loginRequired)
     .put(function (req, res) {
       firstname = req.body.firstname;
       lastname = req.body.lastname;
@@ -115,7 +115,6 @@ router.route('/api/users')
   .get(function(req,res){
     var usersArr = users.toArray();
     var safeArr = [];
-    //safeArr.push.apply(safeArr, usersArr);
 
     for (i = 0; i < usersArr.length; i++) {
       safeArr.push({

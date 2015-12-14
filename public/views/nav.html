@@ -13,6 +13,7 @@
       <a href="/recipes/" ng-click="closeNav('/recipes')">All Recipes</a>
       <h5>Hi, {{user.firstname}}</h5>
       <a href="/account" ng-click="closeNav('/account')">My Account</a>
+      <a href="/admin" ng-if="user.cid == 0">Admin</a>
       <a href="/logout" target="_self">Logout</a>
     </nav>
   </div>
