@@ -26,6 +26,7 @@ module.exports = function(grunt) {
           'public/lib/angular-messages/angular-messages.min.js',
           'public/lib/angular-sanitize/angular-sanitize.min.js',
           'public/lib/angular-file-upload/dist/angular-file-upload.min.js',
+          'public/lib/checklist-model/checklist-model.js',
           'public/lib/showdown/dist/showdown.min.js',
           'public/src/app.js',
           'public/src/controllers.js',

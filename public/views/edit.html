@@ -19,6 +19,11 @@
       <form-field record="recipe" field="servings" live="false"></form-field>
       <form-field record="recipe" field="time" live="false"></form-field>
       <form-field record="recipe" field="source" live="false"></form-field>
+
+      <h3 class="mb-1-2">Categories</h3>
+      <label class="checkbox-label" ng-repeat="category in categories">
+        <input type="checkbox" checklist-model="recipe['categories']" checklist-value="category"> {{category}}
+      </label>
     </div>
   </div>
 
