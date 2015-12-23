@@ -41,7 +41,10 @@ router.use(require('cookie-parser')());
 router.use(require('express-session')({
   secret: 'woiwjfeapoiwe87asdoas7',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 2629746000
+  }
 }));
 router.use(passport.initialize());
 router.use(passport.session());
