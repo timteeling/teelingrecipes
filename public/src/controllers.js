@@ -57,10 +57,12 @@ angular.module('RecipesApp')
 
     $scope.categories = [
       'breakfast',
-      'sides',
+      'drinks',
       'appetizers',
-      'desserts',
-      'dinner'
+      'dinner',
+      'sauces',
+      'sides',
+      'desserts'
     ];
 
     $scope.sort = function(field){
@@ -83,10 +85,12 @@ angular.module('RecipesApp')
 
     $scope.categories = [
       'breakfast',
-      'sides',
+      'drinks',
       'appetizers',
-      'desserts',
-      'dinner'
+      'dinner',
+      'sauces',
+      'sides',
+      'desserts'
     ];
 
     $scope.recipe = new Recipe({
@@ -171,10 +175,12 @@ angular.module('RecipesApp')
 
     $scope.categories = [
       'breakfast',
-      'sides',
+      'drinks',
       'appetizers',
-      'desserts',
-      'dinner'
+      'dinner',
+      'sauces',
+      'sides',
+      'desserts'
     ];
 
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });

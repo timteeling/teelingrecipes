@@ -9,7 +9,7 @@
     </p>
   </div>
   <div class="filter-nav">
-    <a href="" ng-class="{ 'active' : (filters.categories == '')}" ng-click="filters.categories = ''">All</a>
+    <a href="" ng-class="{ 'active' : (filters.categories == '' || filters.categories == null)}" ng-click="filters.categories = ''">All</a>
     <span ng-repeat="category in categories">
       <a class="capitalize" href="" ng-class="{ 'active' : (filters.categories == category)}" ng-click="filters.categories = category">{{category}}</a>
     </span>
