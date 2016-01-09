@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="row recipe-list" ng-repeat="recipe in recipes | filter: query | filter: filters">
+<div class="row recipe-list" ng-repeat="recipe in recipes | filter: query | filter: filters | orderBy: sort.field : sort.order">
   <div class="twothirds">
     <h2><a href="/recipes/{{recipe.cid}}">{{recipe.title[0]}}</a></h2>
     <div class="description" ng-bind-html="recipe.description[0] | md"></div>
