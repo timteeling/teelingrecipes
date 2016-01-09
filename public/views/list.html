@@ -8,9 +8,15 @@
       <input type="search" placeholder="Search" ng-model="query" />
     </p>
   </div>
+  <div class="filter-nav">
+    <a href="" ng-class="{ 'active' : (filters.categories == '' || filters.categories == null)}" ng-click="filters.categories = ''">All</a>
+    <span ng-repeat="category in categories">
+      <a class="capitalize" href="" ng-class="{ 'active' : (filters.categories == category)}" ng-click="filters.categories = category">{{category}}</a>
+    </span>
+  </div>
 </div>
 
-<div class="row recipe-list" ng-repeat="recipe in recipes | filter: query | orderBy: sort.field : sort.order">
+<div class="row recipe-list" ng-repeat="recipe in recipes | filter: query | filter: filters">
   <div class="twothirds">
     <h2><a href="/recipes/{{recipe.cid}}">{{recipe.title[0]}}</a></h2>
     <div class="description" ng-bind-html="recipe.description[0] | md"></div>

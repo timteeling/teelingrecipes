@@ -3,6 +3,11 @@ label {
   font-weight: bold;
 }
 
+.checkbox-label {
+  font-weight: normal;
+  text-transform: capitalize;
+}
+
 .required {
   color: $color-red;
 }

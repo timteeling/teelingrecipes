@@ -53,6 +53,18 @@ angular.module('RecipesApp')
     $scope.recipes = Recipe.query();
     $scope.fields = ['title', 'description'];
 
+    $scope.filters = [];
+
+    $scope.categories = [
+      'breakfast',
+      'drinks',
+      'appetizers',
+      'dinner',
+      'sauces',
+      'sides',
+      'desserts'
+    ];
+
     $scope.sort = function(field){
       $scope.sort.field = field;
       $scope.sort.order = !$scope.sort.order;
@@ -71,6 +83,16 @@ angular.module('RecipesApp')
     $scope.user = $rootScope.user;
     $scope.imageUploaded = false;
 
+    $scope.categories = [
+      'breakfast',
+      'drinks',
+      'appetizers',
+      'dinner',
+      'sauces',
+      'sides',
+      'desserts'
+    ];
+
     $scope.recipe = new Recipe({
       title: ['', 'text'],
       description: ['', 'textarea'],
@@ -86,7 +108,8 @@ angular.module('RecipesApp')
       ],
       steps: [
         ['', 'textarea']
-      ]
+      ],
+      categories: []
 
     });
 
@@ -111,21 +134,21 @@ angular.module('RecipesApp')
     };
 
     $scope.addIngredient = function(){
-      $scope.recipe['ingredients'].push(['', 'text']);
+      $scope.recipe.ingredients.push(['', 'text']);
     };
 
     $scope.removeIngredient = function(item){
-      var index = $scope.recipe['ingredients'].indexOf(item);
-      $scope.recipe['ingredients'].splice(index, 1);
+      var index = $scope.recipe.ingredients.indexOf(item);
+      $scope.recipe.ingredients.splice(index, 1);
     };
 
     $scope.addStep = function(){
-      $scope.recipe['steps'].push(['', 'text']);
+      $scope.recipe.steps.push(['', 'text']);
     };
 
     $scope.removeStep = function(item){
-      var index = $scope.recipe['steps'].indexOf(item);
-      $scope.recipe['steps'].splice(index, 1);
+      var index = $scope.recipe.steps.indexOf(item);
+      $scope.recipe.steps.splice(index, 1);
     };
 
     $scope.save = function(){
@@ -149,6 +172,16 @@ angular.module('RecipesApp')
     $rootScope.user = USER;
     $scope.user = $rootScope.user;
     $scope.modal = false;
+
+    $scope.categories = [
+      'breakfast',
+      'drinks',
+      'appetizers',
+      'dinner',
+      'sauces',
+      'sides',
+      'desserts'
+    ];
 
     $scope.recipe = Recipe.get({ id: parseInt($routeParams.id, 10) });
 
@@ -179,21 +212,21 @@ angular.module('RecipesApp')
     };
 
     $scope.addIngredient = function(){
-      $scope.recipe['ingredients'].push(['', 'text']);
+      $scope.recipe.ingredients.push(['', 'text']);
     };
 
     $scope.removeIngredient = function(item){
-      var index = $scope.recipe['ingredients'].indexOf(item);
-      $scope.recipe['ingredients'].splice(index, 1);
+      var index = $scope.recipe.ingredients.indexOf(item);
+      $scope.recipe.ingredients.splice(index, 1);
     };
 
     $scope.addStep = function(){
-      $scope.recipe['steps'].push(['', 'text']);
+      $scope.recipe.steps.push(['', 'text']);
     };
 
     $scope.removeStep = function(item){
-      var index = $scope.recipe['steps'].indexOf(item);
-      $scope.recipe['steps'].splice(index, 1);
+      var index = $scope.recipe.steps.indexOf(item);
+      $scope.recipe.steps.splice(index, 1);
     };
 
     $scope.blurUpdate = function() {
