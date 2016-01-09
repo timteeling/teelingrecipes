@@ -38,6 +38,9 @@
     <div ng-if="recipe.source[0][0].length > 0" class="source">
       <strong>Source:</strong> <a target="_blank" href="{{ recipe.source[1][0]}}">{{ recipe.source[0][0] }}</a>
     </div>
+    <div ng-if="recipe.categories.length > 0" class="categories">
+      <strong>Categories:</strong> <span class="capitalize" ng-repeat="category in recipe.categories">{{category}}{{$last ? '' : ', '}}</span>
+    </div>
   </div>
 </div>
 
