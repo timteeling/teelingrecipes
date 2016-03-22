@@ -70,8 +70,8 @@ angular.module('RecipesApp')
       $scope.sort.order = !$scope.sort.order;
     };
 
-    $scope.sort.field = 'title';
-    $scope.sort.order = false;
+    $scope.sort.field = '$updated';
+    $scope.sort.order = true;
 
     $scope.show = function(id){
       $location.url('/recipes/' + id);
