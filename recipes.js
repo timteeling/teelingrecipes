@@ -5,11 +5,11 @@ var db = new (require('locallydb'))('./.data');
 var recipes = db.collection('recipes');
 
 router.route('/api/recipes')
-  .all(login.required)
+  //.all(login.required)
   .get(function(req,res) {
     res.json(recipes.toArray());
   })
-  .post(function(req,res){
+  .post(login.required, function(req,res){
     var recipe = req.body;
     recipe.userId = req.user.cid;
 
@@ -28,12 +28,12 @@ router
     next();
   })
   .route('/api/recipes/:id')
-    .all(login.required)
+    //.all(login.required)
     .get(function(req,res){
       var single = recipes.get(req.dbQuery);
       res.json(single);
     })
-    .put(function (req, res) {
+    .put(login.required, function (req, res) {
       var recipe = req.body;
       delete recipe.$promise;
       delete recipe.$resolved;
@@ -41,7 +41,7 @@ router
         res.json(data[0]);
       });
     })
-    .delete(function(req,res){
+    .delete(login.required, function(req,res){
       recipes.remove(req.dbQuery);
       res.json(null);
     });
