@@ -108,15 +108,14 @@ function parseDate(value: unknown, fallback: Date): Date {
   return Number.isNaN(d.getTime()) ? fallback : d;
 }
 
-export interface TransformedUser {
+export interface TransformedProfile {
   id: string;
-  name: string;
   email: string;
   firstName: string | null;
   lastName: string | null;
   role: Role;
+  neonUserId: string | null;
   legacyCid: number;
-  emailVerified: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -148,17 +147,17 @@ export interface TransformWarning {
 }
 
 export interface TransformResult {
-  users: TransformedUser[];
+  profiles: TransformedProfile[];
   recipes: TransformedRecipe[];
   warnings: TransformWarning[];
 }
 
-export function transformUsers(
+export function transformProfiles(
   items: LegacyUser[],
   warnings: TransformWarning[],
-): TransformedUser[] {
+): TransformedProfile[] {
   const seenEmails = new Set<string>();
-  const out: TransformedUser[] = [];
+  const out: TransformedProfile[] = [];
 
   for (const u of items) {
     const email = (u.username ?? '').trim().toLowerCase();
@@ -177,8 +176,9 @@ export function transformUsers(
     const created = parseDate(u.$created, new Date());
 
     out.push({
-      id: stableId('user', u.cid),
-      name: [firstName, lastName].filter(Boolean).join(' ') || email,
+      id: stableId('profile', u.cid),
+      // Attached on first sign-in; Neon assigns the identity.
+      neonUserId: null,
       email,
       firstName,
       lastName,
@@ -186,9 +186,6 @@ export function transformUsers(
       // only in the nav template. That becomes a real, server-enforced column.
       role: u.cid === 0 ? 'admin' : 'member',
       legacyCid: u.cid,
-      // Nobody is verified until they click a magic link. Legacy passwords
-      // were unsalted SHA-512 and are never imported.
-      emailVerified: false,
       createdAt: created,
       updatedAt: parseDate(u.$updated, created),
     });
@@ -199,7 +196,7 @@ export function transformUsers(
 
 export function transformRecipes(
   items: LegacyRecipe[],
-  usersByCid: Map<number, TransformedUser>,
+  profilesByCid: Map<number, TransformedProfile>,
   warnings: TransformWarning[],
 ): TransformedRecipe[] {
   const takenSlugs = new Set<string>();
@@ -225,7 +222,7 @@ export function transformRecipes(
 
     let authorId: string | null = null;
     if (typeof r.userId === 'number') {
-      const author = usersByCid.get(r.userId);
+      const author = profilesByCid.get(r.userId);
       if (author) {
         authorId = author.id;
       } else {
@@ -280,8 +277,8 @@ export function transform(
   legacyRecipes: LegacyRecipe[],
 ): TransformResult {
   const warnings: TransformWarning[] = [];
-  const users = transformUsers(legacyUsers, warnings);
-  const usersByCid = new Map(users.map((u) => [u.legacyCid, u]));
-  const recipes = transformRecipes(legacyRecipes, usersByCid, warnings);
-  return { users, recipes, warnings };
+  const profiles = transformProfiles(legacyUsers, warnings);
+  const profilesByCid = new Map(profiles.map((p) => [p.legacyCid, p]));
+  const recipes = transformRecipes(legacyRecipes, profilesByCid, warnings);
+  return { profiles, recipes, warnings };
 }

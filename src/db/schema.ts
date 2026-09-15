@@ -1,6 +1,5 @@
 import { sql } from 'drizzle-orm';
 import {
-  boolean,
   check,
   index,
   integer,
@@ -33,88 +32,50 @@ export type Role = (typeof ROLES)[number];
 const categoryList = sql.raw(CATEGORIES.map((c) => `'${c}'`).join(', '));
 
 /* -------------------------------------------------------------------------- */
-/* Auth tables (owned by Better Auth, extended with our own columns)           */
+/* Profiles                                                                   */
 /* -------------------------------------------------------------------------- */
 
-export const users = pgTable(
-  'users',
+/**
+ * Application-owned user data.
+ *
+ * Identity itself lives in Neon's managed `neon_auth.*` schema — Neon owns
+ * `neon_auth.users_sync`, `neon_auth.account` and `neon_auth.session`. We do
+ * not define or migrate those.
+ *
+ * This table holds what Neon does not know about: the authorization role and
+ * the legacy locallydb identity. Rows are created by the migration keyed on
+ * email, before any Neon user exists; `neonUserId` is attached on first
+ * sign-in.
+ *
+ * Note that `neon_auth.users_sync` is populated asynchronously (usually under
+ * a second), so it is deliberately not used as a foreign key target.
+ */
+export const profiles = pgTable(
+  'profiles',
   {
     id: text('id').primaryKey(),
-    name: text('name').notNull(),
-    email: text('email').notNull().unique(),
-    emailVerified: boolean('email_verified').notNull().default(false),
-    image: text('image'),
 
-    // Our additions. Surfaced to Better Auth via `user.additionalFields`.
+    // Stable across the migration and across Google sign-in, so this is the
+    // join key rather than any provider-assigned id.
+    email: text('email').notNull().unique(),
+
+    // Neon's user id. Null until the person signs in for the first time.
+    neonUserId: text('neon_user_id'),
+
     firstName: text('first_name'),
     lastName: text('last_name'),
     role: text('role').notNull().default('member'),
 
-    // locallydb `cid`, kept so migrated recipes can be re-linked to authors
-    // and so we can prove the migration was faithful. Null for new signups.
     legacyCid: integer('legacy_cid'),
 
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
-    uniqueIndex('users_legacy_cid_idx').on(t.legacyCid),
-    check('users_role_check', sql`${t.role} IN ('member', 'admin')`),
+    uniqueIndex('profiles_neon_user_id_idx').on(t.neonUserId),
+    uniqueIndex('profiles_legacy_cid_idx').on(t.legacyCid),
+    check('profiles_role_check', sql`${t.role} IN ('member', 'admin')`),
   ],
-);
-
-export const sessions = pgTable(
-  'sessions',
-  {
-    id: text('id').primaryKey(),
-    token: text('token').notNull().unique(),
-    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
-    ipAddress: text('ip_address'),
-    userAgent: text('user_agent'),
-    userId: text('user_id')
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
-    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index('sessions_user_id_idx').on(t.userId)],
-);
-
-export const accounts = pgTable(
-  'accounts',
-  {
-    id: text('id').primaryKey(),
-    accountId: text('account_id').notNull(),
-    providerId: text('provider_id').notNull(),
-    userId: text('user_id')
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
-    accessToken: text('access_token'),
-    refreshToken: text('refresh_token'),
-    idToken: text('id_token'),
-    accessTokenExpiresAt: timestamp('access_token_expires_at', { withTimezone: true }),
-    refreshTokenExpiresAt: timestamp('refresh_token_expires_at', { withTimezone: true }),
-    scope: text('scope'),
-    // Unused: this app has no password auth. Present because Better Auth's
-    // schema expects the column.
-    password: text('password'),
-    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index('accounts_user_id_idx').on(t.userId)],
-);
-
-export const verifications = pgTable(
-  'verifications',
-  {
-    id: text('id').primaryKey(),
-    identifier: text('identifier').notNull(),
-    value: text('value').notNull(),
-    expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
-    updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
-  },
-  (t) => [index('verifications_identifier_idx').on(t.identifier)],
 );
 
 /* -------------------------------------------------------------------------- */
@@ -122,14 +83,17 @@ export const verifications = pgTable(
 /* -------------------------------------------------------------------------- */
 
 /**
- * The allowlist. Sign-in succeeds only for an address listed here — this is
- * what replaces the legacy app's open `/register` route, where anyone on the
- * internet could create a full account.
+ * The allowlist.
+ *
+ * Neon's managed auth allows anyone to sign up by default, so this is enforced
+ * in two places: the `user.before_create` webhook blocks account creation, and
+ * every authenticated request re-checks it, so a stranger who somehow obtains
+ * a Neon session still sees nothing.
  */
 export const allowedEmails = pgTable('allowed_emails', {
   email: text('email').primaryKey(),
   note: text('note'),
-  addedBy: text('added_by').references(() => users.id, { onDelete: 'set null' }),
+  addedBy: text('added_by').references(() => profiles.id, { onDelete: 'set null' }),
   addedAt: timestamp('added_at', { withTimezone: true }).notNull().defaultNow(),
 });
 
@@ -167,7 +131,7 @@ export const recipes = pgTable(
     // Vercel Blob pathname. Null for the 38 of 52 recipes with no photo.
     imageKey: text('image_key'),
 
-    authorId: text('author_id').references(() => users.id, { onDelete: 'set null' }),
+    authorId: text('author_id').references(() => profiles.id, { onDelete: 'set null' }),
 
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
@@ -181,7 +145,7 @@ export const recipes = pgTable(
   ],
 );
 
-export type User = typeof users.$inferSelect;
+export type Profile = typeof profiles.$inferSelect;
 export type Recipe = typeof recipes.$inferSelect;
 export type NewRecipe = typeof recipes.$inferInsert;
 export type AllowedEmail = typeof allowedEmails.$inferSelect;

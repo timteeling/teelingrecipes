@@ -17,7 +17,7 @@ import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import 'dotenv/config';
 
-import { allowedEmails, recipes, users } from '../src/db/schema';
+import { allowedEmails, profiles, recipes } from '../src/db/schema';
 import {
   transform,
   type LegacyCollection,
@@ -68,10 +68,10 @@ function readCollection<T>(dir: string, name: string): LegacyCollection<T> {
 }
 
 function report(result: TransformResult): void {
-  const { users: u, recipes: r, warnings } = result;
+  const { profiles: u, recipes: r, warnings } = result;
 
-  console.log('\n─── Users ───────────────────────────────────────────');
-  console.log(`  ${u.length} user(s)`);
+  console.log('\n─── Profiles ────────────────────────────────────────');
+  console.log(`  ${u.length} profile(s)`);
   for (const user of u) {
     const label = user.role === 'admin' ? ' [admin]' : '';
     console.log(`    cid ${String(user.legacyCid).padStart(2)}  ${user.email}${label}`);
@@ -134,14 +134,13 @@ async function write(result: TransformResult): Promise<void> {
 
   console.log('\nWriting to Postgres…');
 
-  for (const user of result.users) {
+  for (const user of result.profiles) {
     await db
-      .insert(users)
+      .insert(profiles)
       .values(user)
       .onConflictDoUpdate({
-        target: users.id,
+        target: profiles.id,
         set: {
-          name: user.name,
           email: user.email,
           firstName: user.firstName,
           lastName: user.lastName,
@@ -157,7 +156,7 @@ async function write(result: TransformResult): Promise<void> {
       .values({ email: user.email, note: `migrated from legacy cid ${user.legacyCid}` })
       .onConflictDoNothing();
   }
-  console.log(`  ${result.users.length} user(s) upserted and allowlisted`);
+  console.log(`  ${result.profiles.length} profile(s) upserted and allowlisted`);
 
   for (const recipe of result.recipes) {
     await db
