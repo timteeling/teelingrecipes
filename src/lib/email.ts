@@ -10,6 +10,10 @@ export async function sendEmail(opts: {
   html: string;
   text: string;
 }): Promise<void> {
+  if (!env.RESEND_API_KEY || !env.EMAIL_FROM) {
+    throw new Error('sendEmail called with no email sender configured');
+  }
+
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: {

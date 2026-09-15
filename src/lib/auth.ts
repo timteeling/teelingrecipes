@@ -6,13 +6,16 @@ import { eq } from 'drizzle-orm';
 
 import { db } from '@/db';
 import { allowedEmails } from '@/db/schema';
-import { env } from './env';
+import { env, magicLinkEnabled } from './env';
 import { magicLinkEmail, sendEmail } from './email';
 
 /**
  * The allowlist gate. This is what replaces the legacy app's open `/register`
  * route, where anyone on the internet could create an account with full read
  * and write access to every recipe.
+ *
+ * It is enforced regardless of how someone arrives — Google or magic link.
+ * Authenticating with Google proves who you are, not that you are family.
  */
 async function isAllowed(email: string): Promise<boolean> {
   const rows = await db
@@ -33,6 +36,23 @@ export const auth = betterAuth({
   // No password auth anywhere in this app. Nothing to hash, nothing to reset,
   // nothing to stuff credentials against.
   emailAndPassword: { enabled: false },
+
+  socialProviders: {
+    google: {
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    },
+  },
+
+  account: {
+    accountLinking: {
+      // Migrated users exist as rows with an email but no linked identity.
+      // Without this, their first Google sign-in would collide on the unique
+      // email instead of attaching to the row they already own.
+      enabled: true,
+      trustedProviders: ['google'],
+    },
+  },
 
   user: {
     additionalFields: {
@@ -58,8 +78,6 @@ export const auth = betterAuth({
   databaseHooks: {
     user: {
       create: {
-        // Defence in depth: even if a sign-in flow is reached some other way,
-        // an account is never created for an address that is not allowlisted.
         before: async (user) => {
           if (!(await isAllowed(user.email))) {
             throw new Error('This email address is not on the allowlist.');
@@ -71,24 +89,27 @@ export const auth = betterAuth({
   },
 
   plugins: [
-    magicLink({
-      expiresIn: 60 * 15,
-      disableSignUp: false,
-      sendMagicLink: async ({ email, url }) => {
-        // Silently no-op for addresses that are not allowlisted. The caller
-        // still sees success, so this endpoint cannot be used to enumerate
-        // which family members have accounts.
-        if (!(await isAllowed(email))) return;
-
-        const { html, text } = magicLinkEmail(url);
-        await sendEmail({
-          to: email,
-          subject: 'Sign in to Teeling Family Recipes',
-          html,
-          text,
-        });
-      },
-    }),
+    // Only registered when an email sender is configured. With Google as the
+    // primary method this stays off, and the app needs no email vendor.
+    ...(magicLinkEnabled
+      ? [
+          magicLink({
+            expiresIn: 60 * 15,
+            sendMagicLink: async ({ email, url }) => {
+              // Silently no-op for addresses that are not allowlisted, so the
+              // endpoint cannot be used to enumerate who has an account.
+              if (!(await isAllowed(email))) return;
+              const { html, text } = magicLinkEmail(url);
+              await sendEmail({
+                to: email,
+                subject: 'Sign in to Teeling Family Recipes',
+                html,
+                text,
+              });
+            },
+          }),
+        ]
+      : []),
     nextCookies(),
   ],
 });
