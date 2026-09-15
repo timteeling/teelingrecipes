@@ -1,6 +1,16 @@
 .DS_Store
 node_modules
-.data
-tmp
-public/img/uploads
-public/img/recipes
+.next
+out
+build
+next-env.d.ts
+*.tsbuildinfo
+
+# Never commit real credentials. .env.example is the tracked template.
+.env
+.env.local
+.env*.local
+
+# Legacy app data pulled off the DigitalOcean droplet for migration.
+# Contains family email addresses and password hashes — keep it out of git.
+/legacy-data

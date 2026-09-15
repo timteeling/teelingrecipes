@@ -1,43 +1,42 @@
 {
   "name": "teeling-recipes",
-  "version": "1.0.0",
-  "description": "Family recipe app",
-  "main": "server.js",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Teeling family recipe app",
   "scripts": {
-    "start": "node server.js"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "migrate:legacy": "tsx scripts/migrate-legacy.ts",
+    "migrate:images": "tsx scripts/migrate-images.ts"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/timteeling/teelingrecipes"
-  },
-  "author": "Tim Teeling",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.14.1",
-    "connect-flash": "^0.1.1",
-    "cookie-parser": "^1.4.0",
-    "ejs": "^2.3.4",
-    "express": "^4.13.3",
-    "express-session": "^1.12.1",
-    "locallydb": "0.0.9",
-    "mime": "^1.3.4",
-    "multer": "^1.1.0",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0"
+    "@neondatabase/serverless": "^1.1.0",
+    "@vercel/blob": "^2.8.0",
+    "better-auth": "^1.7.5",
+    "drizzle-orm": "^0.45.2",
+    "next": "^16.3.5",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-markdown": "^10.1.0",
+    "rehype-sanitize": "^6.0.0",
+    "remark-gfm": "^4.0.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
-    "bower": "^1.6.9",
-    "gm": "^1.21.1",
-    "grunt": "^0.4.5",
-    "grunt-contrib-concat": "^0.5.1",
-    "grunt-contrib-uglify": "^0.11.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-html2js": "^0.3.5",
-    "grunt-sass": "^1.1.0",
-    "grunt-shell": "^1.1.2",
-    "load-grunt-tasks": "^3.3.0"
-  },
-  "engines": {
-    "node": "0.12.0"
+    "@types/node": "^26.5.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "dotenv": "^17.4.2",
+    "drizzle-kit": "^0.31.10",
+    "sass": "^1.104.1",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
   }
 }
